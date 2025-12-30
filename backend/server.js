@@ -18,7 +18,7 @@ app.use(helmet());
 
 // Enable CORS
 app.use(cors({
-  origin: '*',
+  origin: process.env.CLIENT_URL || '*',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
