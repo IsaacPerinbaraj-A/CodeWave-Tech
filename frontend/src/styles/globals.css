@@ -1,0 +1,325 @@
+﻿/* Import Premium Font FIRST */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Design Tokens (Root Variables) */
+:root {
+  /* Background Tokens */
+  --bg-space-black: #0B0F19;
+  --bg-deep-navy: #111827;
+  --bg-midnight-surface: #161B2E;
+  --bg-soft-border: #1F2937;
+  
+  /* Text Tokens */
+  --text-pure-white: #FFFFFF;
+  --text-cool-gray: #9CA3AF;
+  --text-muted-gray: #6B7280;
+  --text-disabled: #4B5563;
+  
+  /* Accent Tokens */
+  --accent-electric-blue: #4F7DF3;
+  --accent-blue-hover: #3B6BE6;
+  --accent-neon-cyan: #22D3EE;
+  --accent-soft-violet: #7C7CFF;
+  
+  /* Shadows */
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --shadow-glow-blue: 0 0 30px rgba(79, 125, 243, 0.3);
+  --shadow-glow-cyan: 0 0 25px rgba(34, 211, 238, 0.4);
+}
+
+/* Base Styles */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    @apply bg-space-black text-pure-white font-sans antialiased;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-pure-white;
+    letter-spacing: -0.02em;
+  }
+  
+  p {
+    @apply text-cool-gray leading-relaxed;
+  }
+}
+
+/* Component Layer */
+@layer components {
+  /* Primary Button */
+  .btn-primary {
+    @apply bg-electric-blue text-pure-white font-semibold;
+    @apply px-7 py-3.5 rounded-btn;
+    @apply transition-all duration-300 ease-out;
+    box-shadow: 0 0 20px rgba(79, 125, 243, 0.35);
+  }
+  
+  .btn-primary:hover {
+    @apply bg-electric-blue-hover;
+    box-shadow: 0 0 30px rgba(79, 125, 243, 0.3);
+    transform: translateY(-2px);
+  }
+  
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+  
+  /* Secondary Button (Outline) */
+  .btn-secondary {
+    @apply bg-transparent text-electric-blue font-semibold;
+    @apply px-7 py-3.5 rounded-btn;
+    @apply border border-electric-blue;
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  .btn-secondary:hover {
+    @apply bg-electric-blue/10;
+  }
+  
+  /* Ghost Button */
+  .btn-ghost {
+    @apply bg-transparent text-cool-gray font-medium;
+    @apply px-7 py-3.5 rounded-btn;
+    @apply border border-soft-border;
+    @apply transition-all duration-300;
+  }
+  
+  .btn-ghost:hover {
+    @apply border-electric-blue text-pure-white;
+  }
+  
+  /* Premium Card */
+  .card-premium {
+    @apply bg-midnight-surface border border-soft-border rounded-card;
+    @apply p-6 transition-all duration-300;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+  
+  .card-premium:hover {
+    @apply border-electric-blue/50;
+    transform: translateY(-4px);
+  }
+  
+  /* Input Field */
+  .input-field {
+    @apply w-full bg-space-black border border-soft-border rounded-input;
+    @apply px-4 py-3 text-pure-white placeholder:text-muted-gray;
+    @apply transition-all duration-200;
+  }
+  
+  .input-field:focus {
+    @apply outline-none border-electric-blue;
+    box-shadow: 0 0 20px rgba(79, 125, 243, 0.35);
+  }
+  
+  .input-field:disabled {
+    @apply bg-midnight-surface text-disabled-gray cursor-not-allowed;
+  }
+  
+  /* Error Input */
+  .input-error {
+    @apply border-error-red;
+  }
+  
+  .input-error:focus {
+    @apply border-error-red;
+  }
+  
+  /* Success Input */
+  .input-success {
+    @apply border-success-green;
+  }
+  
+  .input-success:focus {
+    @apply border-success-green;
+  }
+}
+
+/* Utility Layer */
+@layer utilities {
+  .glow-blue {
+    box-shadow: 0 0 20px rgba(79, 125, 243, 0.35);
+  }
+  
+  .glow-cyan {
+    box-shadow: 0 0 25px rgba(34, 211, 238, 0.4);
+  }
+  
+  .text-gradient-blue {
+    background: linear-gradient(135deg, #4F7DF3, #22D3EE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .glow-blue,
+  .glow-cyan,
+  .btn-primary {
+    box-shadow: none !important;
+  }
+  
+  .card-premium {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Hero specific styles */
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 3.5rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem !important;
+  }
+  
+  canvas {
+    display: none;
+  }
+}
+
+/* 3D Card Flip Styles */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(79, 125, 243, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(79, 125, 243, 0.6);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Gradient Animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* 3D Card Flip Styles */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(79, 125, 243, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(79, 125, 243, 0.6);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Gradient Animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
