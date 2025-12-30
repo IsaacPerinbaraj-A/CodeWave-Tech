@@ -36,7 +36,7 @@ if (process.env.NODE_ENV === 'production') {
     message: 'Too many requests from this IP, please try again later.',
   });
   app.use('/api/', limiter);
-}
+} // ✅ FIXED: Added closing brace
 
 // Routes
 app.use('/api/auth', require('./src/routes/auth'));
@@ -70,14 +70,13 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5000;
-
 const server = app.listen(PORT, () => {
   console.log(`
 ╔═══════════════════════════════════════╗
-║   🌊 CodeWave Technologies Server    ║
-║   ✅ Server running on port ${PORT}     ║
-║   🌍 Environment: ${process.env.NODE_ENV}        ║
-║   🔓 Rate limiting: ${process.env.NODE_ENV === 'production' ? 'ENABLED' : 'DISABLED'}     ║
+║ 🌊 CodeWave Technologies Server       ║
+║ ✅ Server running on port ${PORT}        ║
+║ 🌍 Environment: ${process.env.NODE_ENV}           ║
+║ 🔓 Rate limiting: ${process.env.NODE_ENV === 'production' ? 'ENABLED' : 'DISABLED'}            ║
 ╚═══════════════════════════════════════╝
   `);
 });

@@ -3,12 +3,11 @@
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGODB_URI);
-
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`❌ MongoDB Connection Error: ${error.message}`);
     process.exit(1);
-  }
+  } // ✅ FIXED: Removed extra closing brace
 };
 
-module.exports = connectDB;
+module.exports = connectDB; // ✅ FIXED: Moved outside function

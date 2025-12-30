@@ -45,6 +45,44 @@ router.post('/', async (req, res) => {
   }
 })
 
+// Get statistics (admin only) - MUST BE BEFORE /:id
+router.get('/stats', authenticateToken, async (req, res) => {
+  try {
+    const total = await ServiceRequest.countDocuments()
+    const pending = await ServiceRequest.countDocuments({ status: 'pending' })
+    const inProgress = await ServiceRequest.countDocuments({ status: 'in-progress' })
+    const completed = await ServiceRequest.countDocuments({ status: 'completed' })
+
+    const byService = await ServiceRequest.aggregate([
+      {
+        $group: {
+          _id: '$serviceType',
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $sort: { count: -1 }  // ✅ Sort by count in descending order
+      }
+    ])
+
+    res.json({
+      success: true,
+      data: {
+        total,
+        pending,
+        inProgress,
+        completed,
+        byService,
+      },
+    })
+  } catch (error) {
+    console.error('Stats error:', error)
+    res.status(500).json({ 
+      message: 'Failed to fetch statistics' 
+    })
+  }
+})
+
 // Get all service requests (admin only)
 router.get('/', authenticateToken, async (req, res) => {
   try {
@@ -138,41 +176,6 @@ router.delete('/:id', authenticateToken, async (req, res) => {
     console.error('Delete request error:', error)
     res.status(500).json({ 
       message: 'Failed to delete request' 
-    })
-  }
-})
-
-// Get statistics (admin only)
-router.get('/stats/overview', authenticateToken, async (req, res) => {
-  try {
-    const total = await ServiceRequest.countDocuments()
-    const pending = await ServiceRequest.countDocuments({ status: 'pending' })
-    const inProgress = await ServiceRequest.countDocuments({ status: 'in-progress' })
-    const completed = await ServiceRequest.countDocuments({ status: 'completed' })
-
-    const byService = await ServiceRequest.aggregate([
-      {
-        $group: {
-          _id: '$serviceType',
-          count: { $sum: 1 },
-        },
-      },
-    ])
-
-    res.json({
-      success: true,
-      data: {
-        total,
-        pending,
-        inProgress,
-        completed,
-        byService,
-      },
-    })
-  } catch (error) {
-    console.error('Stats error:', error)
-    res.status(500).json({ 
-      message: 'Failed to fetch statistics' 
     })
   }
 })

@@ -1,7 +1,8 @@
 ﻿const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 
-exports.protect = async (req, res, next) => {
+// Export as authenticateToken to match what routes expect
+exports.authenticateToken = async (req, res, next) => {
   let token;
 
   // Check for token in header
@@ -42,3 +43,6 @@ exports.protect = async (req, res, next) => {
     });
   }
 };
+
+// Also export as protect for backward compatibility
+exports.protect = exports.authenticateToken;
